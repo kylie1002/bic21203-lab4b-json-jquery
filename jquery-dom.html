@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q3 - Native JavaScript vs jQuery</title>
+  <style>
+    .myStyle {
+      background-color: coral;
+      padding: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="myElement">Original Text</div>
+
+  <div id="myDIV"><p>I am a myDIV.</p></div>
+
+  <button id="myButton">Click me</button>
+
+  <!-- jQuery 4.0.0 full build (not slim) -->
+  <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+
+  <script>
+    $(function () {
+      // (a) Replace the text of #myElement
+      $("#myElement").text("Modified Text");
+
+      // (b) Add the myStyle class to #myDIV
+      $("#myDIV").addClass("myStyle");
+
+      // (c) Respond to a click on #myButton
+      $("#myButton").on("click", function () {
+        alert("Button clicked!");
+      });
+    });
+  </script>
+</body>
+</html>

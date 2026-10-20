@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q2 - Retrieve and Display JSON Data</title>
+</head>
+<body>
+  <h1>Book Data</h1>
+
+  <h2>(a) Title of the first book</h2>
+  <p id="firstTitle"></p>
+
+  <h2>(b) Author of the second book</h2>
+  <p id="secondAuthor"></p>
+
+  <h2>(c) Genres by book</h2>
+  <ul id="genreList"></ul>
+
+  <p id="error" role="alert"></p>
+
+  <script>
+    const firstTitle = document.getElementById("firstTitle");
+    const secondAuthor = document.getElementById("secondAuthor");
+    const genreList = document.getElementById("genreList");
+    const errorBox = document.getElementById("error");
+
+    async function loadBooks() {
+      try {
+        const response = await fetch("books.json");
+
+        // fetch only rejects on network failure, so check HTTP status too
+        if (!response.ok) {
+          throw new Error("HTTP error " + response.status);
+        }
+
+        const data = await response.json();   // throws if the JSON is invalid
+
+        // (a) Title of the first book
+        firstTitle.textContent = data.books[0].title;
+
+        // (b) Author of the second book
+        secondAuthor.textContent = data.books[1].author;
+
+        // (c) Genres of both books, grouped by title
+        data.books.forEach(function (book) {
+          const li = document.createElement("li");
+          li.textContent = book.title + " — " + book.genres.join(", ");
+          genreList.appendChild(li);
+        });
+      } catch (error) {
+        errorBox.textContent =
+          "Sorry, the book data could not be loaded. Please try again later.";
+        console.error(error);
+      }
+    }
+
+    loadBooks();
+  </script>
+</body>
+</html>
